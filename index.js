@@ -11,6 +11,7 @@ const url = require('url');
 //internal imports
 const register = require('./controllers/auth/register');
 const authRoute = require('./routes/authentication');
+const verifyToken = require('./middlewares/authorization');
 
 
 dotenv.config();
