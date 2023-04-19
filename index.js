@@ -9,7 +9,8 @@ const morgan = require('morgan');
 const path = require('path');
 const url = require('url');
 //internal imports
-const register = require('./controllers/auth')
+const register = require('./controllers/auth/register');
+const authRoute = require('./routes/authentication');
 
 
 dotenv.config();
@@ -35,6 +36,7 @@ const upload = multer({ storage });
 
 //ROUTES
 app.post('/auth/register', upload.single("picture"), register);
+app.use('/auth', authRoute);
 
 app.get('/', (req, res) => {
     res.send('Ellion Social Media');
