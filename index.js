@@ -12,6 +12,7 @@ const url = require('url');
 const register = require('./controllers/auth/register');
 const authRoute = require('./routes/authentication');
 const verifyToken = require('./middlewares/authorization');
+const usersRoute = require('./routes/usersRoute');
 
 
 dotenv.config();
@@ -38,6 +39,7 @@ const upload = multer({ storage });
 //ROUTES
 app.post('/auth/register', upload.single("picture"), register);
 app.use('/auth', authRoute);
+app.use('/users', usersRoute);
 
 app.get('/', (req, res) => {
     res.send('Ellion Social Media');

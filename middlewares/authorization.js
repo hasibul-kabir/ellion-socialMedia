@@ -8,7 +8,7 @@ const verifyToken = (req, res, next) => {
             return res.status(403).json({ message: "Access denied!" })
         }
 
-        if (token.startWith("Bearer")) {
+        if (token.startsWith("Bearer")) {
             token = token.slice(7, token.length).trimStart();
         }
 
