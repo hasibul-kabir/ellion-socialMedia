@@ -14,6 +14,7 @@ const authRoute = require('./routes/authentication');
 const verifyToken = require('./middlewares/authorization');
 const usersRoute = require('./routes/usersRoute');
 const createPost = require('./controllers/posts/createPost');
+const postsRoute = require('./routes/postsRoute');
 
 
 dotenv.config();
@@ -42,7 +43,7 @@ app.post('/auth/register', upload.single("picture"), register);
 app.post('/posts', upload.single("picture"), verifyToken, createPost);
 app.use('/auth', authRoute);
 app.use('/users', usersRoute);
-// app.use('/posts')
+app.use('/posts', postsRoute);
 
 app.get('/', (req, res) => {
     res.send('Ellion Social Media');
