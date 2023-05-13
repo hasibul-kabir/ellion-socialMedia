@@ -25,8 +25,13 @@ const login = async (req, res) => {
         //create token
         const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET_KEY);
 
-        delete user.password; //prevent send pass on response
-        res.status(200).json({ token, user })
+        res.status(200).json({
+            token, user: {
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email
+            }
+        })
 
     } catch (error) {
         res.status(500).json({
