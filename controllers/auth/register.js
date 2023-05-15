@@ -4,7 +4,8 @@ const User = require('../../models/User');
 
 const register = async (req, res) => {
     try {
-        const { firstName, lastName, email, password, picturePath, friends, location, occupation, viewedProfile, impressions } = req.body;
+        const { firstName, lastName, email, password, friends, location, occupation, viewedProfile, impressions } = req.body;
+        const picture = req.file || {};
 
 
         //check- is email already used?
@@ -25,7 +26,7 @@ const register = async (req, res) => {
             lastName,
             email,
             password: hashedPass,
-            picturePath,
+            picturePath: picture.originalname,
             friends,
             location,
             occupation,
@@ -38,7 +39,7 @@ const register = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
-            errorMessage: error.message
+            message: error.message
         })
     }
 }
