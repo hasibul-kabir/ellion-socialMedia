@@ -2,12 +2,13 @@ const Post = require("../../models/Post");
 
 const createPost = async (req, res) => {
     try {
-        const { userId, description, picturePath } = req.body;
+        const { userId, description } = req.body;
+        const picture = req.file || {};
 
         const newPost = new Post({
             user: userId,
             description,
-            picturePath,
+            picturePath: picture.originalname,
             likes: {},
             comments: []
         })
