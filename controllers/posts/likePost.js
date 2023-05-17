@@ -22,7 +22,7 @@ const likePost = async (req, res) => {
 
         res.status(200).json(updatedPost)
     } catch (error) {
-        res.status(500).json({ errorMessage: error.message })
+        res.status(500).json({ message: error.message })
     }
 }
 
