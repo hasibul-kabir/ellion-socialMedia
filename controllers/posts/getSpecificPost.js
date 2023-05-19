@@ -1,6 +1,6 @@
 const Post = require("../../models/Post");
 
-const getSpecificPost = async () => {
+const getSpecificPost = async (req, res) => {
     try {
         const { id } = req.params;
         const post = await Post.findById(id);
