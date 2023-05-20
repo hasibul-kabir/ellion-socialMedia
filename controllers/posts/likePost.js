@@ -6,9 +6,9 @@ const likePost = async (req, res) => {
         const { userId } = req.body;
 
         const post = await Post.findById(id);
-        const isLiked = post.likes.find((user) => user === userId)
+        const isLiked = post.likes.includes(userId)
 
-        if (isLiked === userId) {
+        if (isLiked) {
             post.likes = post.likes.filter((user) => user !== userId)
         } else {
             post.likes.push(userId)

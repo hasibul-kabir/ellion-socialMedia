@@ -2,7 +2,7 @@ const Post = require("../../models/Post")
 
 const getAllPosts = async (req, res) => {
     try {
-        const posts = await Post.find().populate("user", "firstName lastName email picturePath").sort('-updatedAt');
+        const posts = await Post.find().populate("user", "firstName lastName email picturePath").sort('-createdAt');
         res.status(200).json(posts)
 
     } catch (error) {

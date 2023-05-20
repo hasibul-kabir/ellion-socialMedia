@@ -6,6 +6,6 @@ const usersRoute = express.Router();
 usersRoute.get('/', verifyToken, getAllUsers)
 usersRoute.get('/:id', verifyToken, getUser)
 usersRoute.get('/:id/friends', verifyToken, getFriends)
-usersRoute.get('/:id/:friendId', verifyToken, addRemoveFriend)
+usersRoute.patch('/:id/:friendId', verifyToken, addRemoveFriend)
 
 module.exports = usersRoute;
