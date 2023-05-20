@@ -24,6 +24,36 @@ exports.getUser = async (req, res) => {
     }
 }
 
+exports.editUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { firstName, lastName, occupation, location } = req.body;
+
+        await User.findByIdAndUpdate(
+            id,
+            {
+                firstName,
+                lastName,
+                occupation,
+                location
+            },
+            { new: true }
+        )
+
+        res.status(200).json({
+            message: "Profile updated."
+        })
+
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
+
+
 exports.getFriends = async (req, res) => {
     try {
         const { id } = req.params;
