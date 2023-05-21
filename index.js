@@ -42,7 +42,7 @@ const upload = multer({ storage });
 //ROUTES
 app.post('/auth/register', upload.single("picture"), register);
 app.post('/posts', upload.single("picture"), verifyToken, createPost);
-app.post('/users/:id/editphoto', upload.single("picture"), verifyToken, updateProfilePic);
+app.patch('/users/editphoto', upload.single("picture"), verifyToken, updateProfilePic);
 app.use('/auth', authRoute);
 app.use('/users', usersRoute);
 app.use('/posts', postsRoute);

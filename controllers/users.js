@@ -72,14 +72,11 @@ exports.editUser = async (req, res) => {
 
 exports.updateProfilePic = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { userId } = req.body;
         const picture = req.file || {};
 
-        const user = await User.findById(id);
-        fs.unlinkSync(`public/assets/${user?.picturePath}`)
-
         await User.findByIdAndUpdate(
-            id,
+            userId,
             {
                 picturePath: picture.originalname
             },
