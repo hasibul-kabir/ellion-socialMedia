@@ -24,6 +24,24 @@ exports.getUser = async (req, res) => {
     }
 }
 
+exports.searchUser = async (req, res) => {
+    try {
+        const { key } = req.params;
+        const query = new RegExp(key, 'i');
+        if (query === '') {
+            return res.status(404).json({ message: 'No matched result!' })
+        }
+        const searchResult = await User.find({ lastName: query }, '_id, firstName, lasrName, picturePath');
+
+        res.status(200).json(searchResult)
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Something wrong!"
+        })
+    }
+}
+
 exports.editUser = async (req, res) => {
     try {
         const { id } = req.params;
@@ -52,7 +70,25 @@ exports.editUser = async (req, res) => {
     }
 }
 
+exports.getUserExceptFriends = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const allUsers = await User.find();
+        const user = await User.findById(id);
 
+        const notFriends = allUsers.filter(({ _id }) => !user.friends.includes(_id));
+        const userExceptFriends = notFriends.map(({ _id, firstName, lastName, picturePath, occupation, location }) => {
+            return { _id, firstName, lastName, picturePath, occupation, location }
+        })
+
+        res.status(200).json(userExceptFriends)
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
 
 exports.getFriends = async (req, res) => {
     try {
