@@ -28,10 +28,11 @@ exports.searchUser = async (req, res) => {
     try {
         const { key } = req.params;
         const query = new RegExp(key, 'i');
+
         if (query === '') {
             return res.status(404).json({ message: 'No matched result!' })
         }
-        const searchResult = await User.find({ lastName: query }, '_id, firstName, lasrName, picturePath');
+        const searchResult = await User.find({ lastName: query }, '_id firstName lastName picturePath');
 
         res.status(200).json(searchResult)
 
