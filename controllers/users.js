@@ -1,4 +1,5 @@
 const User = require("../models/User")
+const fs = require('fs')
 
 
 exports.getAllUsers = async (req, res) => {
@@ -62,7 +63,32 @@ exports.editUser = async (req, res) => {
         res.status(200).json({
             message: "Profile updated."
         })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
 
+exports.updateProfilePic = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const picture = req.file || {};
+
+        const user = await User.findById(id);
+        fs.unlinkSync(`public/assets/${user?.picturePath}`)
+
+        await User.findByIdAndUpdate(
+            id,
+            {
+                picturePath: picture.originalname
+            },
+            { new: true }
+        )
+
+        res.status(200).json({
+            message: "Profile picture updated."
+        })
 
     } catch (error) {
         res.status(500).json({
